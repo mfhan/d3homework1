@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+
+    <!-- some basic stuff  -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>D3 Homework</title>
+
+    <!-- 
+      add your stylesheet 
+      base.css loads the basic stuff
+      you can tweak your css in custom.css
+      WARNING: the order of the stylesheets matters
+    -->
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="custom.css">
+
+    <!-- add your d3 script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    
+    <!-- your JS code that uses d3 to manipulate data -->
+    <script>
+
+      // Step 4. load your data with d3.csv()
+      d3.csv("tennis_list.csv")
+      // d3.json("happiness-sample-data.json")
+        .then(data => {
+
+          // check if the data is loaded:
+          console.log(data)
+
+          // == your code happens below ==
+          
+          // Step 5. create an SVG container inside #my-svg-chart using d3.select().append()
+          const myChart = d3
+            .select('#my-svg-chart')
+            .append('svg')
+            .attr('width', 640)
+            .attr('height', 640)
+          // Step 6. create SVG shapes bound to data, using d3.selectAll().data().join()
+          const days = myChart
+            .selectAll('circle')
+            .data(data)
+            .join('circle');
+          //FYI - You can create:
+        // - [Circles](https://www.w3schools.com/graphics/svg_circle.asp)
+        // - [Rectangles](https://www.w3schools.com/graphics/svg_rect.asp)
+        // - [Lines](https://www.w3schools.com/graphics/svg_line.asp)
+        // - [Text](https://www.w3schools.com/graphics/svg_text.asp)
+        // - ... 
+      
+          // Step 7. tweak the attributes of the SVG shapes to position them at the right places
+          const gridSize = 50, gap = 2;
+          days
+            // SVG rectangle specific attributes:
+            //"d" means data, "i" means index
+            //when changing to circles, make sure to use cx and cy 
+            .attr('cx', (d,i) => {
+              return (Math.floor(i%10)*(gridSize+ gap))+25;
+            })
+            .attr('cy', (d,i) => {
+              return (Math.floor(i/10)*(gridSize+ gap)) +25;
+            })
+            .attr("r", gridSize/3)
+            // .attr('width', gridSize)
+            // .attr('height', gridSize)
+
+          // Step 8. Encode data onto the SVG shapes
+          days.style('fill', d=> {
+            // if (d.Happiness == '1') {return 'black'}
+            // if (d.Happiness == '2') {return 'grey'}
+            // if (d.Happiness == '3') {return 'gold'}
+            if (d.Country == 'USA') {return 'red'}
+            if (d.Country == 'AUS') {return 'green'}
+            if (d.Country == 'RUS' || d.Country == 'URS') {return 'blue'}
+            if (d.Country == 'FRG' || d.Country == 'GER' ) {return 'yellow'}
+            else {return "gray"}
+          })
+
+
+          // 
+
+
+        })
+
+    </script>
+
+
+
+  </head>
+  <body>
+    <h1>Sadface Homework Assignment: Wimby Champions by Country</h1>
+    <p>WHAT: Attempt at using D3 with a dataframe I extracted from a wikipedia page (https://en.wikipedia.org/wiki/List_of_Wimbledon_ladies%27_singles_champions)</p>
+    <p>Circles correspond to the winner's nationality: red for USA, blue for USSR or Russia, yellow for West Germany or Germany, green for Australia, and gray for other countries </p>
+    <div id="my-svg-chart"></div>
+  </body>
+</html>
