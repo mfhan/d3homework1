@@ -38,29 +38,31 @@
             .append('svg')
             .attr('width', 640)
             .attr('height', 640)
+            // .selectAll("text")
+            // .join("text");
           // Step 6. create SVG shapes bound to data, using d3.selectAll().data().join()
           const days = myChart
+          // .selectAll("text")
+          // .join("text")
             .selectAll('circle')
             .data(data)
             .join('circle');
-          //FYI - You can create:
         // - [Circles](https://www.w3schools.com/graphics/svg_circle.asp)
         // - [Rectangles](https://www.w3schools.com/graphics/svg_rect.asp)
         // - [Lines](https://www.w3schools.com/graphics/svg_line.asp)
         // - [Text](https://www.w3schools.com/graphics/svg_text.asp)
-        // - ... 
       
           // Step 7. tweak the attributes of the SVG shapes to position them at the right places
-          const gridSize = 50, gap = 2;
+          const gridSize = 80, gap = 2;
           days
             // SVG rectangle specific attributes:
             //"d" means data, "i" means index
             //when changing to circles, make sure to use cx and cy 
             .attr('cx', (d,i) => {
-              return (Math.floor(i%10)*(gridSize+ gap))+25;
+              return (Math.floor(i%10)*(gridSize+ gap))+40;
             })
             .attr('cy', (d,i) => {
-              return (Math.floor(i/10)*(gridSize+ gap)) +25;
+              return (Math.floor(i/10)*(gridSize+ gap)) +40;
             })
             .attr("r", gridSize/3)
             // .attr('width', gridSize)
@@ -68,20 +70,17 @@
 
           // Step 8. Encode data onto the SVG shapes
           days.style('fill', d=> {
-            // if (d.Happiness == '1') {return 'black'}
-            // if (d.Happiness == '2') {return 'grey'}
-            // if (d.Happiness == '3') {return 'gold'}
             if (d.Country == 'USA') {return 'red'}
             if (d.Country == 'AUS') {return 'green'}
-            if (d.Country == 'RUS' || d.Country == 'URS') {return 'blue'}
-            if (d.Country == 'FRG' || d.Country == 'GER' ) {return 'yellow'}
+            // if (d.Country == 'RUS' || d.Country == 'URS') {return 'blue'}
+            if (d.Country == 'CZE') {return 'pink'}
+            if (d.Country == 'FRA') {return 'blue'}
+            if (d.Country == 'FRG'|| d.Country == 'FRG[j]' || d.Country == 'GER' ) {return 'yellow'}
             else {return "gray"}
           })
-
-
-          // 
-
-
+          // .text(d => d.Champion); THIS DIDN'T WORK...
+          // .selectAll("text")
+          // .join("text");
         })
 
     </script>
@@ -90,9 +89,15 @@
 
   </head>
   <body>
-    <h1>Sadface Homework Assignment: Wimby Champions by Country</h1>
+    <h2>Sadface Homework Assignment:</h2><br>
+      <h1>Wimbledon Ladies' Champions by Country</h1>
     <p>WHAT: Attempt at using D3 with a dataframe I extracted from a wikipedia page (https://en.wikipedia.org/wiki/List_of_Wimbledon_ladies%27_singles_champions)</p>
-    <p>Circles correspond to the winner's nationality: red for USA, blue for USSR or Russia, yellow for West Germany or Germany, green for Australia, and gray for other countries </p>
+    <p><strong>Circles correspond to the winner's nationality</strong>: <br>
+      -- red for USA, <br>
+      -- blue for France, <br>
+      -- yellow for West Germany or Germany, <br>
+      -- green for Australia, <br>
+      -- and gray for other countries </p>
     <div id="my-svg-chart"></div>
   </body>
 </html>
