@@ -41,7 +41,7 @@
             // .selectAll("text")
             // .join("text");
           // Step 6. create SVG shapes bound to data, using d3.selectAll().data().join()
-          const days = myChart
+          const medals = myChart
           // .selectAll("text")
           // .join("text")
             .selectAll('circle')
@@ -54,7 +54,7 @@
       
           // Step 7. tweak the attributes of the SVG shapes to position them at the right places
           const gridSize = 80, gap = 2;
-          days
+          medals
             // SVG rectangle specific attributes:
             //"d" means data, "i" means index
             //when changing to circles, make sure to use cx and cy 
@@ -69,7 +69,7 @@
             // .attr('height', gridSize)
 
           // Step 8. Encode data onto the SVG shapes
-          days.style('fill', d=> {
+          medals.style('fill', d=> {
             if (d.Country == 'USA') {return 'red'}
             if (d.Country == 'AUS') {return 'green'}
             // if (d.Country == 'RUS' || d.Country == 'URS') {return 'blue'}
@@ -96,6 +96,7 @@
       -- blue for France, <br>
       -- yellow for West Germany or Germany, <br>
       -- green for Australia, <br>
+      -- pink for Czechoslovakia or the Czech Republic
       -- and gray for other countries </p>
     <div id="my-svg-chart"></div>
   </body>
